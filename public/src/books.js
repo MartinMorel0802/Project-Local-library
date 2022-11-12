@@ -7,10 +7,6 @@ function findBookById(books, id) {
 }
 
 function partitionBooksByBorrowedStatus(books) {
-  //create a function that takes an array of books and returns an array of the non-returns books
-  const getNonReturnedBooks = (books) => {
-  return books.filter((book) => book.borrows.some((transaction) => !transaction.returned));
-};
   //create a function that takes the books and returns the returned books
   const getReturnedBooks = (books) => {
   return books.filter((book) => book.borrows.every((transaction) => transaction.returned));
