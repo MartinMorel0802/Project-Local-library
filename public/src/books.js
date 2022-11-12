@@ -1,5 +1,7 @@
+const support = require("./support.js")
+
 function findAuthorById(authors, id) {
-  return authors.find((author) => author.id === id);  
+  return authors.find((author) => author.id === id);
 }
 
 function findBookById(books, id) {
@@ -7,13 +9,11 @@ function findBookById(books, id) {
 }
 
 function partitionBooksByBorrowedStatus(books) {
-  //create a function that takes the books and returns the returned books
-  const getReturnedBooks = (books) => {
-  return books.filter((book) => book.borrows.every((transaction) => transaction.returned));
-};
-  const nonReturnedBooks = getNonReturnedBooks(books);
+  
+  
+  const nonReturnedBooks = support.getNonReturnedBooks(books);
 
-  const returnedBooks = getReturnedBooks(books);
+  const returnedBooks = support.getReturnedBooks(books);
 
   const result = [];
 
@@ -22,7 +22,6 @@ function partitionBooksByBorrowedStatus(books) {
   result.push(returnedBooks);
 
   return result;
-
 }
 
 function getBorrowersForBook(book, accounts) {
@@ -31,8 +30,9 @@ function getBorrowersForBook(book, accounts) {
   const result = transactions.map((transaction) => {
     //use the function of accounts.js to find account by id
     function findAccountById(accounts, id) {
-  return accounts.find((account) => account.id === id);}
-      
+      return accounts.find((account) => account.id === id);
+    }
+
     const accountInfo = findAccountById(accounts, transaction.id);
     const newTransaction = {
       ...transaction,
@@ -42,7 +42,7 @@ function getBorrowersForBook(book, accounts) {
   });
 
   result.splice(10);
-  
+
   return result;
 }
 
@@ -51,5 +51,4 @@ module.exports = {
   findBookById,
   partitionBooksByBorrowedStatus,
   getBorrowersForBook,
- 
 };
